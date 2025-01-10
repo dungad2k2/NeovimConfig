@@ -23,7 +23,12 @@ return {
         capabilities = capabilities,
         filetypes = { "python" },
       })
-      lspconfig.gopls.setup({ capabilities = capabilities })
+      lspconfig.gopls.setup({ 
+        capabilities = capabilities,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gotmpl" },
+        root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+      })
       lspconfig.clangd.setup({ capabilities = capabilities })
     end,
   },
