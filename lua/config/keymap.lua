@@ -5,4 +5,8 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" 
 vim.keymap.set("n", "<C-x>", vim.lsp.buf.format, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+vim.keymap.set("n", "<C-Left>", "<C-w>h", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Right>", "<C-w>l", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Down>", "<C-w>j", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Up>", "<C-w>k", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", { desc = "Neotree left hand" })
