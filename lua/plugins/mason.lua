@@ -1,35 +1,58 @@
 return {
   {
     "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
+    opts = {},
   },
+
   {
     "williamboman/mason-lspconfig.nvim",
-    lazy = false,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
     opts = {
-      auto_install = true,
+      ensure_installed = {
+        "lua_ls",
+        "pyright",
+        "gopls",
+        "clangd",
+      },
+      automatic_enable = false,
     },
   },
+
   {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({
+
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.config("pyright", {
         capabilities = capabilities,
         filetypes = { "python" },
       })
-      lspconfig.gopls.setup({ 
+
+      vim.lsp.config("gopls", {
         capabilities = capabilities,
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gotmpl" },
-        root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+        root_markers = { "go.mod", ".git" },
       })
-      lspconfig.clangd.setup({ capabilities = capabilities })
+
+      vim.lsp.config("clangd", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable({
+        "lua_ls",
+        "pyright",
+        "gopls",
+        "clangd",
+      })
     end,
   },
 }
